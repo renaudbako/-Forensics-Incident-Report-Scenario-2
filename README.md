@@ -41,14 +41,20 @@ A root-level cron job was identified that ensures a malicious payload is execute
 
 Entry: @reboot /etc/system/payload
 
-C. Malicious Binary: /etc/system/payload
+![pers](./images/cronjob.jpg)
+
+C. Malicious Binary: /etc/system/payload (trojan.getshell/connectback)
 Analysis of the file /etc/system/payload reveals a 32-bit ELF executable designed for stealth.
 
-File Type: ELF 32-bit LSB executable, Intel 80386
+The binary at /etc/system/payload was analyzed via VirusTotal and static forensics.
 
-Characteristics: Statically linked, no section headers.
+File Type: ELF 32-bit LSB executable (statically linked, no section headers).
 
-Behavior: The absence of section headers and the raw hex output (containing syscall-like patterns) suggest this is a compiled shellcode dropper or a reverse shell designed to evade standard forensic analysis and library dependencies.
+Threat Label: trojan.getshell/connectback
+
+Functionality: The "connectback" and "getshell" labels identify this as a Reverse Shell.
+
+Unlike a standard bind shell, this payload initiates an outbound connection from the server to the attacker's machine. This allows the attacker to bypass inbound firewall rules and maintain a persistent command-and-control (C2) channel.
 
 ![pers](./images/cronjob.jpg)
 
